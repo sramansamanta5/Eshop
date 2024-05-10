@@ -1,16 +1,28 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import products from '../products';
+//import products from '../products';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Rating from '../components/Rating';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 
 
 const ProductScreen = () => {
 
-  const { id:productId }=useParams();
+  const[product,setProduct]=useState({})
 
+  const { id:productId }=useParams();
+ /*
+   
   const product=products.find((p)=>{return p._id === productId})
   console.log(product)
+ 
+ */
+
+  useEffect(()=>{
+    axios.get(`http://localhost:4000/api/products/${productId}`)
+    .then((res)=>{setProduct(res.data)})
+  },[productId])
  
   return (
     <div>
